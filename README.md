@@ -13,5 +13,5 @@ There are numerous issues with the [LinkedIn InsightTag 2.0](https://github.com/
 
 Additionally, the template code is greatly simplified by using sandboxed APIs such as `createQueue`, and `createArgumentsQueue` that naturally check if values exist before setting them, whereas the LinkedIn template does a bunch of manual variable checking that is unecessary and makes the template harder to maintain.
 
-**Author(s)**
+### Author(s)
 [@derekcavaliero](https://github.com/derekcavaliero)
