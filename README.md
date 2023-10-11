@@ -3,7 +3,7 @@ An optimized (and greatly simplified) LinkedIn Insight tag template that actuall
 
 ## Why use this tag template?
 
-There are numerous issues with the [LinkedIn InsightTag 2.0]([https://duckduckgo.co](https://github.com/linkedin/linkedin-gtm-community-template) template in the gallery. Unfortunately, LinkedIn has not fixed or addressed issues in a timely fashion. 
+There are numerous issues with the [LinkedIn InsightTag 2.0](https://github.com/linkedin/linkedin-gtm-community-template) template in the gallery. Unfortunately, LinkedIn has not fixed or addressed issues in a timely fashion. 
 
 **This template fixes issues such as:**
 
