@@ -70,7 +70,7 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "GROUP",
     "name": "advanced",
-    "displayName": "Advanced Conversion Options",
+    "displayName": "Advanced Options",
     "groupStyle": "ZIPPY_OPEN_ON_PARAM",
     "subParams": [
       {
@@ -254,6 +254,7 @@ const createQueue = require('createQueue');
 const getUrl = require('getUrl');
 const injectScript = require('injectScript');
 const log = require('logToConsole');
+const setInWindow = require('setInWindow');
 
 /**
  * Check that we have the bare minimum data to run the tag
@@ -273,12 +274,7 @@ if (!data.partnerId) {
 
 const setPartnerId = createQueue('_linkedin_data_partner_ids');
 const lintrk = createArgumentsQueue('lintrk', 'lintrk.q');
-
-if (data.conversionUrl) {
-  lintrk('track', {
-    conversion_url: data.conversion_url
-  });
-}
+const _already_called_lintrk = copyFromWindow('_already_called_lintrk');
 
 /**
  * Push & Deduplicate Partner IDs _linkedin_data_partner_ids global
@@ -297,7 +293,24 @@ partnerIds.forEach(id => {
 });
 
 /**
- * If execute track commands on the lintrk global for each Conversion ID provided
+ * Manually call lintrk if conversion_url is being overriden or if lintrk has already been called by
+ * the insights.min.js script or from a prior manual call.
+ */
+
+if (data.conversionUrl || _already_called_lintrk) {
+  
+  let options = {
+    conversion_url: data.conversionUrl
+  };
+
+  lintrk('track', options);
+  
+  setInWindow('_already_called_lintrk', !_already_called_lintrk);
+  
+}
+
+/**
+ * Execute track commands on the lintrk global for each Conversion ID provided
  */
 
 const makeConversionOptionsObject = (data) => {
@@ -576,6 +589,45 @@ ___WEB_PERMISSIONS___
                     "boolean": true
                   }
                 ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "key"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  },
+                  {
+                    "type": 1,
+                    "string": "execute"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "_already_called_lintrk"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  }
+                ]
               }
             ]
           }
@@ -697,6 +749,4 @@ setup: ''
 
 ___NOTES___
 
-Created on 10/11/2023, 12:50:44 PM
-
-
+Created on 10/11/2023, 5:49:44 PM

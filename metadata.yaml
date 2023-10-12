@@ -1,5 +1,7 @@
 homepage: "https://www.webmechanix.com"
 documentation: "https://github.com/WebMechanix/gtm-improved-linkedin-insight-tag"
 versions:
+  - sha: 
+    changeNotes: Adds _already_called_lintrk global and modifies check to allow multiple tags to work as intended.
   - sha: 277fb2a86d9ba8713864dd41c90c9248d05cebec
     changeNotes: Initial release.
